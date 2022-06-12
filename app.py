@@ -27,6 +27,7 @@ def micro_service(i):
 def health():
 	for i in config:
 		if i.startswith('micro'):
+			print('%s_flag=micro_service(config["%s"])'%(i,i))
 			exec('%s_flag=micro_service(config["%s"])'%(i,i))
 	db=db_query(config['db'],'SELECT VERSION();')
 	return make_response(jsonify({
