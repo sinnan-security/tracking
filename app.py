@@ -54,8 +54,7 @@ def logger(request,response):
 		tmp=tmp+'"'+header[0]+'":"'+header[1]+'"'
 	tmp=tmp+'}'
 	p=open(config["log_path"],"a")
-	"[%s] %s %s headers:{%s} data:{%s}\n"%(datetimex(datetime.datetime.now()),request.method,request.full_path,tmp,request.get_data(as_text=True))
-	p.write(" "+"body:"+request.get_data(as_text=True)+"]")
+	p.write("[%s] %s %s headers:{%s} data:{%s}\n"%(datetimex(datetime.datetime.now()),request.method,request.full_path,tmp,request.get_data(as_text=True)))
 	p.close()
 
 if __name__ == "__main__":
