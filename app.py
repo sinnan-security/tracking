@@ -15,7 +15,7 @@ def db_query(conn,query):
 	response=requests.post(
 		'http://%s:%s'%(p.hostname,p.port),
 		data='{ "username":"%s", "password":"%s", "dbname":"%s", "query":"%s" }'%(p.username,p.password,p.path[1:],query))
-	return response
+	return response.status_code==200
 def datetimex(i):
 	return str(i.strftime("%d/%m/%Y %H:%M:%S"))
 def micro_service(i):
@@ -32,7 +32,7 @@ def health():
 	db=db_query(config['db'],'SELECT VERSION();')
 	return make_response(jsonify({
 		'service_tracking':{
-			'CPU_usage':str(psutil.cpu_percent()),'RAM_usage':str(psutil.virtual_memory().percent),'STORAGE_usage':str(psutil.disk_usage('/').percent),			'SQLITE_connection':db.status_code==200,
+			'CPU_usage':str(psutil.cpu_percent()),'RAM_usage':str(psutil.virtual_memory().percent),'STORAGE_usage':str(psutil.disk_usage('/').percent),			'SQLITE_connection':db,
 			'REDIS_connection':'To_Be_Implemented',
 			'API_logstash':'To_Be_Implemented',
 			'micro_ordermanagement':x['micro_ordermanagement_flag'],
