@@ -20,7 +20,7 @@ def datetimex(i):
 	return str(i.strftime("%d/%m/%Y %H:%M:%S"))
 def micro_service(i):
 	try:
-		return request.get(i+'/health').status_code==200
+		return request.get(i+'/health')
 	except:
 		return False 
 @app.route('/health', methods=['GET'])
@@ -47,13 +47,6 @@ def SomeFunctionality():
 	response={}
 	logger(request,response)
 	return "<h1>tracking service %s</H1>"%(rand)
-	
-@app.route('/api/tracking/OtherRoute', methods=['POST'])
-def Otherfunctionality():
-	response={}
-	params = request.get_json(force=True)
-	logger(request,response)
-	return make_response(jsonify(params),200)
 
 def logger(request,response):
 	tmp='headers:{'
